@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Curso de vue 2 - aula 06</title>
+</head>
+<body class="p-8">
+    <div id="app" class="space-y-4">
+        <div class="info bg-gray-200 p-2 w-1/2">
+            <h2>Entendendo o v-on</h2>
+            <p>
+                A diretiva v-on linka eventos específicos com os métodos do vue. (funções)
+            </p>
+        </div>
+        <span>Ex:</span>
+        <form action="#" class="space-y-4">
+            <div class="form-group bg-gray-500 p-2 rounded text-white w-72 flex justify-between items-center">
+                <label for="nome">Nome</label>
+                <input class="bg-gray-200 p-2 rounded text-black" type="text" name="nome" id="nome" v-model="nome" />
+            </div>
+            <div class="form-group bg-gray-500 p-2 rounded text-white w-72 flex justify-between items-center">
+                <label for="idade">Idade</label>
+                <input class="bg-gray-200 p-2 rounded text-black" type="number" name="idade" id="idade" v-model="idade" />
+            </div>
+            <div class="form-group bg-gray-500 p-2 rounded text-white w-72 flex justify-between items-center">
+                <label class="bg-gray-500 p-2 rounded text-white" for="sexo">Selecione o sexo</label>
+                <select name="sexo" id="sexo" class="bg-gray-200 p-2 rounded text-black" v-model="sexo">
+                    <option>selecionar</option>
+                    <option>masculino</option>
+                    <option>feminino</option>
+                </select>
+            </div>
+        </form>
+        <button v-on:click="save" class="p-2 bg-emerald-400 w-20 rounded drop-shadow-md">
+            save
+        </button>
+        <button v-on:click="clear" class="p-2 bg-red-400 w-20 rounded drop-shadow-md">
+            clear
+        </button>
+        <div class="result space-y-2">
+            <p v-bind:key="id" v-for="(item, id) in dados" class="bg-gray-500 p-2 rounded text-white w-72">
+                {{item}}
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data(){
+                return{
+                    nome:null,
+                    idade:null,
+                    sexo:'selecionar',
+                    dados:[],
+                }
+            },
+            methods: {
+                save(){
+                    this.dados.push(this.nome);
+                    this.dados.push(this.idade);
+                    this.dados.push(this.sexo);
+                    this.nome = ''
+                    this.idade = ''
+                    this.sexo = 'selecionar'
+                    this.data = this.dados;
+                },
+                clear(){
+                    this.dados = [];
+                }
+            },
+            // mounted(){
+            //     if(localStorage.dados){
+            //         this.dados = localStorage.dados;
+            //     }
+            // },
+            // watch:{
+            //     dados(newDados){
+            //         localStorage.dados = newDados; 
+            //     }
+            // }
+        })
+    </script>
+</body>
+</html>

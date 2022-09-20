@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Curso de vue 2 - aula 03</title>
+</head>
+<body class="p-8">
+
+    <div id="app" class="space-y-2">
+        <h2>Entendendo a diretiva v-if</h2>
+        <p>
+            A diretiva v-if, deixa visível ou não, um elemento html de acordo com alguma senteça lógica, sendo ela variável ou função
+        </p>
+        <p>
+            Ex: abaixo você pode clicar nos butões para esconder ou mostrar um elemento html
+        </p>
+        <button v-on:Click="esconder" class="p-2 bg-gray-600 text-white rounded">
+            {{valor}}
+        </button>
+        <button v-on:Click="mostrar" class="p-2 bg-gray-600 text-white rounded">
+            {{valor}}
+        </button>
+        <div v-if="estado" class="p-2 bg-gray-900 text-white rounded w-44">
+            {{message}}
+        </div>
+
+    </div>
+
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data(){
+                return{
+                    estado:true,
+                    valor:'Esconder',
+                    message:'este é um teste do v-if',
+                }
+            },
+            methods: {
+                mostrar(){
+                    this.estado = true,
+                    this.valor = 'Esconder'
+                },
+                esconder(){
+                    this.estado = false,
+                    this.valor = 'Mostrar'
+                }
+            },
+        });
+    </script>
+    
+</body>
+</html>
