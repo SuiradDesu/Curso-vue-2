@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Curso de vue 2 - aula 07</title>
+    <title>Curso de vue 2 - aula 08</title>
 </head>
 <body class="p-8">
 
     <div id="app" class="space-y-4 bg-gray-500 p-4 w-1/2 rounded drop-shadow-md text-white">
-        <h2 class="">Entendo a componentização do vuejs 2</h2>
+        <h2 class="">Entendo o computed properties</h2>
         <p>
-            Quando criamos um component, temos que sempre criá-lo como função, pois quando for redenderizado ele não vai compartilhar o data() com os outros components, pois todo component tem seu próprio 
-            data(), sendo assim, as funcionalidades ficam isoladas no escopo do component. 
+            Dentro do component, além do data() e os methods ainda temos o <strong>computed</strong> que são as variáveis computadas, ou seja, são variáveis que terão seus valores alterados de acordo com as dependências dela.
+            <i>Toda computed são funções</i>
         </p>
         <span>Ex: no campo script</span><br />
         Name: <my-form />
@@ -25,12 +25,19 @@
             template: '<div class="space-x-2">' + 
                         '<input type="text" class="p-2 rounded text-black" v-model="text" />' +  
                         '<button type="button" @click="clear" class="p-2 drop-shadow-lg bg-white text-black rounded">clear</button>' +
+                        '<p>{{reverseText}}</p>' +
                     '</div>',
         data(){
             return{
                 text:'',
             }
         },
+        computed:{
+            reverseText(){
+                return this.text.split('').reverse().join('') //  js puro
+            }
+        }
+        ,
         methods:{
             clear(){
                 this.text = ''
@@ -42,7 +49,7 @@
             data(){
                 return{
                 }
-            }
+            },
         });
     </script>
 </body>

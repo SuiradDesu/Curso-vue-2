@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Curso de vue 2 - aula 11</title>
+</head>
+<body class="p-8">
+
+    <div id="app" class="space-y-4 bg-gray-500 p-4 w-1/2 rounded drop-shadow-md text-white">
+        <h2 class="">Usando Props</h2>
+        <p>
+            Usamos <i>Props</i> para customizar um componente.
+            <u>As props nada mais são do que parâmetros que podemos receber de um componente e trabalhar em cima dele.</u>
+        </p>
+        <p>
+            Definimos as props dentro de colchetes, essas props são passadas por meio de interpolação, e para definimos de fato a passagem do valor, incluimos dentro do componente da seguinte forma.
+        </p>
+        <span>Ex:</span><br />
+        <my-form 
+        :key="field" v-for="field in fieldList" :label="field"
+        />
+    </div>
+
+    <script>
+        const myForm = Vue.component("MyForm",{
+            template: '<div class="space-x-2 flex ">' + 
+                        '<span class="block p-4 w-20 rounded text-black bg-white">{{label}}</span>' +
+                        '<input type="text" class="p-2 rounded text-black" v-model="text" />' +  
+                        '<button type="button" @click="clear" class="p-2 w-20 drop-shadow-lg bg-white text-black rounded">clear</button>' +
+                        '<p class="p-2 bg-white w-64 flex justify-center items-center rounded text-black">{{reverseText}}</p>' +
+                    '</div>',
+        props:{
+            // label:String,//jeito bom
+            label:{type: String, required: true}, // Jeito top
+            // label:{type:String, default:''}, // Se não for obrigatório, então é padrão
+            // propMultiple:{type:[String, Number], required:true}, // Usando tipos diferentes para setar a prop
+        },
+        data(){
+            return{
+                text:'',
+            }
+        },
+        computed:{
+            reverseText(){
+                return this.text.split('').reverse().join('') //  js puro
+            }
+        }
+        ,
+        methods:{
+            clear(){
+                this.text = ''
+            },
+        }
+        });
+        const app = new Vue({
+            el: "#app",
+            data(){
+                return{
+                    fieldList: [
+                        'Nome',
+                        'Email',
+                        'Telefone'
+                    ]
+                }
+            },
+        });
+    </script>
+</body>
+</html>

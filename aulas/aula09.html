@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Curso de vue 2 - aula 07</title>
+    <title>Curso de vue 2 - aula 09</title>
 </head>
 <body class="p-8">
 
     <div id="app" class="space-y-4 bg-gray-500 p-4 w-1/2 rounded drop-shadow-md text-white">
-        <h2 class="">Entendo a componentização do vuejs 2</h2>
+        <h2 class="">Comparação entre Computed properties e Methods</h2>
         <p>
-            Quando criamos um component, temos que sempre criá-lo como função, pois quando for redenderizado ele não vai compartilhar o data() com os outros components, pois todo component tem seu próprio 
-            data(), sendo assim, as funcionalidades ficam isoladas no escopo do component. 
+            O resuktado final entre os dois será sempre o mesmo, porém, o computed é muito mais performático que o method, pois o vue cria um cache da variável computada que observa se a variável principal, no caso o <i>text</i>, foi alterada, já o method é chamado toda vez que uma alteração é feita e a cada vez que o conteúdo é renderizado.
         </p>
+        <strong>Há também uma questão semântica, quando queremos uma ação, usamos o method, quando esperamos que a variável retorne alguma coisa, usamos o computed</strong>
         <span>Ex: no campo script</span><br />
         Name: <my-form />
     </div>
@@ -25,15 +25,26 @@
             template: '<div class="space-x-2">' + 
                         '<input type="text" class="p-2 rounded text-black" v-model="text" />' +  
                         '<button type="button" @click="clear" class="p-2 drop-shadow-lg bg-white text-black rounded">clear</button>' +
+                        '<p>{{reverseText}}</p>' +
+                        '<p>{{reverseTextMethod()}}</p>' +
                     '</div>',
         data(){
             return{
                 text:'',
             }
         },
+        computed:{
+            reverseText(){
+                return this.text.split('').reverse().join('') //  js puro
+            }
+        }
+        ,
         methods:{
             clear(){
                 this.text = ''
+            },
+            reverseTextMethod(){
+                return this.text.split('').reverse().join('') //  js puro
             }
         }
         });
@@ -42,7 +53,7 @@
             data(){
                 return{
                 }
-            }
+            },
         });
     </script>
 </body>

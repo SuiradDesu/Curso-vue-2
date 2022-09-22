@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta nome="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Desafio 01</title>
+</head>
+<body class="p-8">
+
+    <div id="app" class="space-y-4 bg-gray-500 p-8 w-1/2 rounded drop-shadow-md text-white">
+        <form-result
+            :nome="usuario.nome"
+            :idade="usuario.idade"
+        ></form-result>
+        <form-input
+            campo-nome="Nome"
+            @salvar="salvaNome"
+        ></form-input>
+        <form-input
+            campo-nome="Idade"
+            @salvar="salvaIdade"
+        ></form-input>
+    </div>
+    <script>
+        const FormResult = Vue.component("FormResult", {
+            template: '<div class="space-x-2 p-2">'+
+                        '<p v-if="nome"  >Nome: {{ nome }} </p>' +
+                        '<p v-if="idade" >Idade: {{ idade }} </p>'+
+                        '</div>', 
+            props:{
+                nome:{
+                    type:String, default:''
+                },
+                idade:{
+                    type:[String, Number], default:''
+                }
+            },
+        });
+        
+        const FormInput = Vue.component("FormInput", {
+            template: '<div class="space-x-2 flex">' +
+                        '<span class="p-2 w-16"> {{campoNome}}: </span><input class="border-2 rounded ml-2 p-2 text-black w-64" type="text" v-model="ValorDoCampo">'+
+                        '<button class="bg-gray-300 rounded drop-shadow-lg px-2 p-1 text-black hover:text-white hover:bg-gray-800" type="button" @click="salvar">{{ mudaEstadoDoBotao }}</button>' +
+                        '</div>',
+            props:{
+                campoNome:{
+                    type:String, required: true
+                }
+            },
+            data(){
+                return{
+                    ValorDoCampo:null,
+                    estado:'Salvar'
+                }
+            },
+            computed:{
+                mudaEstadoDoBotao(){ // Muda a função do botão
+                    return this.ValorDoCampo == '' ? this.estado = 'Limpar' : 'Salvar'
+                }
+            }
+            ,
+            methods:{
+                salvar(){
+                    this.$emit('salvar', this.ValorDoCampo); // emite um evento com nome 'salvar'
+                    this.limpar(); // chama um método para limpar o campo
+                    return this.ValorDoCampo == null ? this.estado = 'Salvar' : 'Limpar'
+                },
+                limpar(){
+                    this.ValorDoCampo = '';
+                },
+            }
+        });
+        const app = new Vue({
+            el:"#app",
+            data(){
+                return{
+                    usuario:{
+                        nome:'',
+                        idade:''
+                    }
+                }
+            },
+            methods:{
+                salvaNome(nome){
+                    this.usuario.nome = nome;
+                },
+                salvaIdade(idade){
+                    this.usuario.idade = idade;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
