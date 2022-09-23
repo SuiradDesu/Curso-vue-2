@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Curso de vue 2 - aula 15</title>
+</head>
+<body class="p-8">
+
+    <div id="app" class="bg-slate-200 p-4 rounded drop-shadow-lg w-96 space-y-2 transition duration-200">
+        <h2>Slots nomeados</h2>
+        <p>
+            Slots nomeados são utilizados para colocar mais de um slot dentro de um componente.
+            Para nomear um slot, basta de fato dar um nome ao slot usando o <i><strong>name</strong></i>, quando não nomeamos o slot, é aplicado um name padrão <i>default</i>
+        </p>
+        <span>Ex:</span>
+        <my-form>
+            <template v-slot:default>
+                <p class="p-2 bg-gray-100 rounded">todos esses elementos são setados pelo slot padrão</p>
+                <button type="button" class=" bg-gray-300 p-2 drop-shadow-lg rounded">Transclude</button>
+            </template>
+            <template v-slot:other >
+                <other-component>
+                    <button type="button" class=" bg-gray-300 p-2 drop-shadow-lg rounded">Button de outro slot</button>
+                </other-component>
+            </template>
+        </my-form>
+    </div>
+
+    <script>
+        const myForm = {
+            template: '<div class="space-y-2">'+
+                    '<p> Meu formulário </p>'+
+                    '<p class="p-2 bg-gray-100 rounded">Abaixo temos os elementos de um slot padrão</p>'+
+                    '<slot />'+
+                    '<p class="p-2 bg-gray-100 rounded">Agora temos os elementos de um slot nomeado</p>'+ 
+                    '<slot name="other" />'+
+                    '</div>'
+        };
+        const otherComponent = {
+            template: '<div class="space-y-2">'+
+                        '<p class="p-2 bg-gray-100 rounded">Eu sou um outro componente</p>' + 
+                        '<slot />'+
+                        '</div>',
+        };
+        const app = new Vue({
+            el: "#app",
+            components: {
+                myForm,
+                otherComponent
+            }
+        });
+    </script>
+</body>
+</html>
