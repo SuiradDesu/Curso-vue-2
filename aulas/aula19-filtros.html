@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Curso de vue 2 - aula 19</title>
+</head>
+<body class="p-8 space-y-4">
+    <a class="p-2 bg-green-200 shadow-lg rounded hover:bg-green-500" href="../index.html">Voltar ao menu de navegação</a>
+
+    <div id="app" class="bg-slate-200 p-4 rounded drop-shadow-lg w-1/2 space-y-2 transition duration-200">
+        <h2>Filtros</h2>
+        <p>
+            Filtros / Filters, são responsáveis por formatar ou converter o conteúdo dos nossos dados/ variáveis.
+        </p>
+        <p>
+            Para criar um <strong>filter</strong> usamos a seguinte sintaxe, <strong>Vue.filter('nome', funcao(valor){
+                if(valor){
+                    valor.substring(0,3) + '.' + value.substring(3,6) + '.' + value.substring(6,9) + '-' + value.substring(9);
+                }
+                return ''; 
+            })</strong>
+        </p>
+        <p>
+            Para chamar o filtro, usamos o pip (variável | filtro)
+        </p>
+        <span>
+            Ex:
+        </span>
+        <p>
+            {{cpf | cpf}}
+        </p>
+    </div>
+
+    <script>
+
+        const cpfFilter = (value) => {
+            if(value){
+              return  `${value.substring(0,3)}.${value.substring(3,6)}.${value.substring(6,9)}-${value.substring(9)}`;
+            }
+            return '';
+        }
+
+        const app = new Vue({
+            el: "#app",
+            filters: {
+                cpf : cpfFilter
+            },
+            data(){
+                return{
+                    cpf:'09990009932',
+                }
+            }
+        });
+    </script>
+</body>
+</html>

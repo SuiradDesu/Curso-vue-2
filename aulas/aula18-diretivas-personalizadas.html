@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Curso de vue 2 - aula 18</title>
+</head>
+<body class="p-8 space-y-4">
+    <a class="p-2 bg-green-200 shadow-lg rounded hover:bg-green-500" href="../index.html">Voltar ao menu de navegação</a>
+
+    <div id="app" class="bg-slate-200 p-4 rounded drop-shadow-lg w-1/2 space-y-2 transition duration-200">
+        <h2>Diretivas personalizadas</h2>
+        <p>
+            Criando nossas próprias diretivas personalizadas, <br />
+        </p>
+        <p>
+            Quando criamos uma diretiva personalizada usamos o <strong>Vue.directive</strong>. <br /> De maneira mais simplificada podemos somente criar uma constante <br /> com o nome da diretiva que o Vue já entende o que queremos criar.
+        </p>
+        <p>
+            Depois do parâmetro <strong>elemento</strong> na função da diretiva personalizada,<br /> podemos passar um outro parâmetro chamado <strong>binding</strong>. <br /> Podemos então  acessar os valores das variáveis do <strong>data()</strong> <br /> passado pela diretiva personalizada.
+        </p>
+        <span>
+            Ex:
+        </span>
+        <div class="input-group">
+            <input v-focus="delay" type="text" />
+        </div>
+    </div>
+
+    <script>
+        // CRIAMOS UMA CONSTANTE COM O NOME DA DIRETIVA E NA INSTÂNCIA DO VUE IMPORTAMOS A DIRETIVA NO 'DIRECTIVES'
+        const focus = {
+            inserted: function(elemento, binding){
+                setTimeout(() => {
+                    elemento.focus();
+                },binding.value)
+            }
+        }
+        const app = new Vue({
+            el: "#app",
+            data(){
+                return{
+                    delay:3000,
+                }
+            },
+            directives:{
+                focus,
+            }
+        });
+    </script>
+</body>
+</html>

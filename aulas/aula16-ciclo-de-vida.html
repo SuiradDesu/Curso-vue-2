@@ -8,24 +8,74 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Curso de vue 2 - aula 16</title>
 </head>
-<body class="p-8">
+<body class="p-8 space-y-4">
+    <a class="p-2 bg-green-200 shadow-lg rounded hover:bg-green-500" href="../index.html">Voltar ao menu de navegação</a>
 
     <div id="app" class="bg-slate-200 p-4 rounded drop-shadow-lg w-full space-y-2 transition duration-200">
         <h2>Ciclo de vida dos componentes</h2>
         <p>
-          
+          Ciclo de vida são as etapas em que o componente passa desde de sua criação até sua exclusão.
+        </p>
+        <p>
+            <h2>Por exemplo</h2><br />
+            Quando iniciamos uma instância Vue 'new Vue()', ele inicia os eventos, cria injeções de dados e reatividade entre outras criações como méthodos.
+        </p>
+        <p>
+            O mais <strong>Importante</strong> <br /> 
+            São as funções nativas do Vue:
+            são elas: <strong>BeforeCreate, Create, BeforeMount, Mounted, BeforeUpdate, Update, BeforeDestroy e Destroy</strong>
+        </p>
+        <p>
+            <strong>Importante</strong> <br />
+            A função Updated é chamada sempre que ocorrer uma mudança na props, se o props for atualizado, o updated é chamado. Isso torna a verificação das mudanças de props, variáveis e que possamos fazer alguma validação no componente.
         </p>
         <span>
            Ex:
         </span>
+        <lifecycle 
+            :texto="text"
+        />
     </div>
 
     <script>
+
+        const lifecycle = {
+            template: '<div>' + 
+                        '<p>{{message}}</p>' +
+                        '<p>{{texto}}</p>' +
+                    '</div>',
+
+        props:{
+            texto:{type:String, default:''}
+        },
+        
+        data(){
+            return{
+                message:''
+            }
+        },
+        created(){
+            this.message = 'Componente nasceu'
+        },
+        updated() {
+            this.message = 'Componente foi alterado'
+        },
+        }
+
         const app = new Vue({
             el: "#app",
+            components:{
+                lifecycle
+            },
             data(){
                 return{
+                    text:'Conteúdo da props'
                 }
+            },
+            created(){
+                setTimeout(() => {
+                    this.text = 'Agora o conteúdo trocou de nome'
+                },3000)
             }
         });
     </script>
