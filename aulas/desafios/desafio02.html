@@ -104,9 +104,19 @@ const formContainer = {
                     '</div>',
             filters: {
                 fieldName(value) {
-                    if (value === 'NAME') return 'Nome';
-                    if (value === 'AGE') return 'Idade';
-                    if (value === 'JOB') return 'Profissão';
+                    switch (value) {
+                        case 'NAME':
+                            return 'Nome'
+                        break;
+                        case 'AGE':
+                            return 'Idade'
+                        break;
+                        case 'JOB':
+                            return 'Profissão'
+                        break;
+                        default:
+                            return '';
+                    }
                     return '';
                 },
             },
