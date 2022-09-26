@@ -103,7 +103,7 @@ const formContainer = {
                         '<button type="button" @click="clear">Limpar</button>' +
                     '</div>',
             filters: {
-                fieldName(value) { // duplicado por enquanto, veremos maneiras melhores de fazer isso mais para a frente
+                fieldName(value) {
                     if (value === 'NAME') return 'Nome';
                     if (value === 'AGE') return 'Idade';
                     if (value === 'JOB') return 'Profissão';
